@@ -32,9 +32,9 @@ const ContactUs = () => {
                 <br />
                 <br />
                 <Button type='submit' variant='contained'>Submit</Button>
+                <br />
+                <br />
             </form>
-
-
         </div>
     );
 };
