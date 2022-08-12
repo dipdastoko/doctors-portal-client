@@ -4,6 +4,7 @@ import Banner from '../Banner/Banner';
 import ExceptionalDental from '../ExceptionalDental/ExceptionalDental';
 import Services from '../Services/Services';
 import Navigation from '../Shared/Navigation/Navigation';
+import Testimonial from '../Testimonial/Testimonial';
 
 const Home = () => {
     return (
@@ -13,6 +14,7 @@ const Home = () => {
             <Services />
             <ExceptionalDental />
             <AppointmentBanner />
+            <Testimonial />
         </div>
     );
 };
