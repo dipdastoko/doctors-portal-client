@@ -1,11 +1,17 @@
-import { Button, Grid, TextField, Typography } from '@mui/material';
+import { Alert, Button, CircularProgress, Grid, TextField, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import useAuth from '../../../Hooks/useAuth';
 import login from '../../../images/login.png';
 
 const Login = () => {
     const [loginData, setLoginData] = useState({});
+    const { user, loginUser, isLoading, authError } = useAuth();
+
+    const location = useLocation();
+    const navigate = useNavigate();
+
     const handleOnChange = e => {
         const field = e.target.name;
         const value = e.target.value;
@@ -14,7 +20,7 @@ const Login = () => {
         setLoginData(newLogindData);
     }
     const handleLoginSubmit = e => {
-        alert('hello');
+        loginUser(loginData.email, loginData.password, location, navigate);
         e.preventDefault();
     }
     return (
@@ -53,6 +59,13 @@ const Login = () => {
                             <Button variant="text">New User? Please Register</Button>
                         </NavLink>
                     </form>
+                    {
+                        isLoading && <CircularProgress />
+                    }
+                    {user?.email && <Alert severity="success">Login Successfully</Alert>
+                    }
+                    {authError && <Alert severity="error">{authError}</Alert>
+                    }
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <img style={{ width: "100%" }} src={login} alt="" />
