@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 import useAuth from '../../../Hooks/useAuth';
+import { useState } from 'react';
 
 const style = {
     position: 'absolute',
@@ -23,11 +24,34 @@ const style = {
 const BookingModal = ({ openBooking, handleBookingClose, booking, date }) => {
     const { name, time } = booking;
     const { user } = useAuth();
+
+    const initialInfo = { patientName: user.displayName, email: user.email, phone: '' };
+
+    const [bookingInfo, setBookingInfo] = useState(initialInfo);
+
+    const handleOnBlur = e => {
+        const field = e.target.name;
+        const value = e.target.value;
+        const newInfo = { ...bookingInfo };
+        newInfo[field] = value;
+        setBookingInfo(newInfo);
+    }
+
     const handleBookSubmit = e => {
-        alert('submitting');
+        e.preventDefault();
+        // collect data
+        const appointment = {
+            ...bookingInfo,
+            time,
+            serviceName: name,
+            date: date.toLocaleDateString()
+        }
+
+        // send data to the server
+        console.log(appointment);
 
         handleBookingClose();
-        e.preventDefault();
+
     }
     return (
         <Modal
@@ -60,7 +84,9 @@ const BookingModal = ({ openBooking, handleBookingClose, booking, date }) => {
                             hiddenLabel
                             sx={{ width: '90%', m: 1 }}
                             id="filled-hidden-label-small"
+                            name="patientName"
                             defaultValue={user.displayName}
+                            onBlur={handleOnBlur}
                             variant="filled"
                             size="small"
                         />
@@ -68,7 +94,9 @@ const BookingModal = ({ openBooking, handleBookingClose, booking, date }) => {
                             hiddenLabel
                             sx={{ width: '90%', m: 1 }}
                             id="filled-hidden-label-small"
+                            name="email"
                             defaultValue={user.email}
+                            onBlur={handleOnBlur}
                             variant="filled"
                             size="small"
                         />
@@ -76,7 +104,9 @@ const BookingModal = ({ openBooking, handleBookingClose, booking, date }) => {
                             hiddenLabel
                             sx={{ width: '90%', m: 1 }}
                             id="filled-hidden-label-small"
+                            name="phone"
                             defaultValue="Your Phone"
+                            onBlur={handleOnBlur}
                             variant="filled"
                             size="small"
                         />
