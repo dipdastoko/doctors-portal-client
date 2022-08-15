@@ -7,7 +7,7 @@ import login from '../../../images/login.png';
 
 const Login = () => {
     const [loginData, setLoginData] = useState({});
-    const { user, loginUser, isLoading, authError } = useAuth();
+    const { user, loginUser, signInWithGoogle, isLoading, authError } = useAuth();
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -22,6 +22,9 @@ const Login = () => {
     const handleLoginSubmit = e => {
         loginUser(loginData.email, loginData.password, location, navigate);
         e.preventDefault();
+    }
+    const handleGoogleSignIn = () => {
+        signInWithGoogle(location, navigate);
     }
     return (
         <Container>
@@ -59,6 +62,8 @@ const Login = () => {
                             <Button variant="text">New User? Please Register</Button>
                         </NavLink>
                     </form>
+                    <p>-------------------------------</p>
+                    <Button onClick={handleGoogleSignIn} variant="contained">Google Sign In</Button>
                     {
                         isLoading && <CircularProgress />
                     }

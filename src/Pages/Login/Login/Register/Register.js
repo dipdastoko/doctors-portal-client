@@ -10,7 +10,7 @@ const Register = () => {
 
     const { user, registerUser, isLoading, authError } = useAuth();
 
-    const handleOnChange = e => {
+    const handleOnBlur = e => {
         const field = e.target.name;
         const value = e.target.value;
         const newLogindData = { ...loginData };
@@ -37,9 +37,18 @@ const Register = () => {
                         <TextField
                             sx={{ width: '75%', m: 1 }}
                             id="standard-basic"
+                            label="Your Name"
+                            name='name'
+                            onBlur={handleOnBlur}
+                            type='text'
+                            variant="standard"
+                        /> <br />
+                        <TextField
+                            sx={{ width: '75%', m: 1 }}
+                            id="standard-basic"
                             label="your email"
                             name='email'
-                            onChange={handleOnChange}
+                            onBlur={handleOnBlur}
                             type='email'
                             variant="standard"
                         /> <br />
@@ -48,7 +57,7 @@ const Register = () => {
                             id="standard-password-input"
                             label="Password"
                             name='password'
-                            onChange={handleOnChange}
+                            onBlur={handleOnBlur}
                             type="password"
                             autoComplete="current-password"
                             variant="standard"
@@ -58,7 +67,7 @@ const Register = () => {
                             id="standard-password-input"
                             label="Re-Enter Password"
                             name='password2'
-                            onChange={handleOnChange}
+                            onBlur={handleOnBlur}
                             type="password"
                             autoComplete="current-password"
                             variant="standard"
