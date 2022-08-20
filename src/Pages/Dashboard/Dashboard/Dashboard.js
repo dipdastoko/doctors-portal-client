@@ -1,5 +1,4 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,15 +15,16 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Grid } from '@mui/material';
-import Calender from '../../Home/Shared/Calender/Calender';
-import Appointments from '../Appointments/Appointments';
+import { Button } from '@mui/material';
+import { Link, Outlet } from 'react-router-dom';
+
 
 const drawerWidth = 240;
 
 function Dashboard(props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
+
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -34,6 +34,10 @@ function Dashboard(props) {
         <div>
             <Toolbar />
             <Divider />
+            <Link to="/appointment"><Button color="inherit">Appointment</Button></Link><br />
+            <Link to="/dashboard"><Button color="inherit">Dashboard</Button></Link><br />
+            <Link to="/dashboard/makeAdmin"><Button color="inherit">Make Admin</Button></Link><br />
+            <Link to="/dashboard/addDoctor"><Button color="inherit">Add Doctor</Button></Link>
             <List>
                 {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
                     <ListItem key={text} disablePadding>
@@ -112,28 +116,10 @@ function Dashboard(props) {
                 sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
             >
                 <Toolbar />
-                <Typography paragraph>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} md={6}>
-                            <Calender></Calender>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Appointments />
-                        </Grid>
-
-                    </Grid>
-                </Typography>
+                <Outlet />
             </Box>
         </Box>
     );
 }
-
-Dashboard.propTypes = {
-    /**
-     * Injected by the documentation to work in an iframe.
-     * You won't need it on your project.
-     */
-    window: PropTypes.func,
-};
 
 export default Dashboard;

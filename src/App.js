@@ -2,7 +2,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import AuthProvider from './Context/AuthProvider';
 import Appointment from './Pages/Appointment/Appointment/Appointment';
+import AddDoctor from './Pages/Dashboard/AddDoctor/AddDoctor';
+import Appointments from './Pages/Dashboard/Appointments/Appointments';
 import Dashboard from './Pages/Dashboard/Dashboard/Dashboard';
+import DashboardHome from './Pages/Dashboard/Dashboard/DashboardHome/DashboardHome';
+import MakeAdmin from './Pages/Dashboard/MakeAdmin/MakeAdmin';
 import Home from './Pages/Home/Home/Home';
 import Login from './Pages/Login/Login/Login';
 import PrivateRoute from './Pages/Login/Login/PrivateRoute/PrivateRoute';
@@ -29,7 +33,11 @@ function App() {
                   <Dashboard />
                 </PrivateRoute>
               }
-            />
+            >
+              <Route index element={<DashboardHome />}></Route>
+              <Route path='makeAdmin' element={<MakeAdmin />}></Route>
+              <Route path='addDoctor' element={<AddDoctor />}></Route>
+            </Route>
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
           </Routes>
